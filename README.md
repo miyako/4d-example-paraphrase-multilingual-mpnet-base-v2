@@ -21,7 +21,7 @@ $cosineSimilarity:=$en.cosineSimilarity($fr)
 ALERT([$cosineSimilarity].join())
 ```
 
-##### Cosine similarity from example code above
+##### Cosine similarity from example code above:
 
 |llama.cpp `Q8_0`|ONNX Runtime `Int8`|CTranslate2 `Int8`
 |-|-|-|
