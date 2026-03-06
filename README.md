@@ -1,9 +1,9 @@
 ## [sentence-transformers/paraphrase-multilingual-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2)
 Paraphrase Multilingual MPNet is a text embedding model released by **Sentence Transformers** in 2021. It was trained using multilingual paraphrase knowledge distillation against MPNet to support `50` languages. 
 
-|`max_position_embeddings`|`hidden_size`|`num_hidden_layers`
-|-:|-:|-:|
-|`512`|`768`|`12`
+|`max_position_embeddings`|`hidden_size`|`num_hidden_layers`|`pooling`
+|-:|-:|-:|-:|
+|`512`|`768`|`12`|`mean`
 
 ```4d
 var $en; $fr : 4D.Vector
