@@ -38,20 +38,41 @@ use Q8_0 quantisation
 */
 
 $homeFolder:=Folder:C1567(fk home folder:K87:24).folder(".GGUF")
-$port:=8080
-$options:={\
-embeddings: True:C214; \
-pooling: "mean"; \
-log_disable: True:C214; \
-fit: "on"}
 
 $folder:=$homeFolder.folder("paraphrase-multilingual-mpnet-base-v2")
 $path:="paraphrase-multilingual-mpnet-base-v2-Q8_0.gguf"
 $URL:="keisuke-miyako/paraphrase-multilingual-mpnet-base-v2-gguf-q8_0"
 
+var $logFile : 4D:C1709.File
+$logFile:=$folder.file("llama.log")
+$folder.create()
+If (Not:C34($logFile.exists))
+	$logFile.setContent(4D:C1709.Blob.new())
+End if 
+var $cores; $max_position_embeddings; $batch_size; $parallel; $threads; $batches : Integer
+$cores:=System info:C1571.cores\2
+$max_position_embeddings:=512
+$batch_size:=512
+$batches:=32
+$threads:=2
+
+var $port : Integer
+$port:=8080
+$options:={\
+embeddings: True:C214; \
+pooling: "mean"; \
+log_file: $logFile; \
+ctx_size: $batch_size*$batches*$threads; \
+batch_size: $batch_size+$batches; \
+parallel: $cores; \
+threads: $threads; \
+threads_batch: $threads; \
+threads_http: $threads; \
+log_disable: False:C215; \
+n_gpu_layers: -1}
+
 $huggingface:=cs:C1710.event.huggingface.new($folder; $URL; $path)
 $huggingfaces:=cs:C1710.event.huggingfaces.new([$huggingface])
-
 
 $llama:=cs:C1710.llama.llama.new($port; $huggingfaces; $homeFolder; $options; $event)
 
@@ -76,7 +97,6 @@ $huggingfaces:=cs:C1710.event.huggingfaces.new([$huggingface])
 
 $ONNX:=cs:C1710.ONNX.ONNX.new($port; $huggingfaces; $homeFolder; $options; $event)
 
-
 /*
 
 CTranslate2: 
@@ -87,7 +107,7 @@ use int8 quantisation
 
 $homeFolder:=Folder:C1567(fk home folder:K87:24).folder(".CTranslate2")
 $port:=8082
-$options:={pooling: "cls"}
+$options:={pooling: "mean"}
 
 $folder:=$homeFolder.folder("paraphrase-multilingual-mpnet-base-v2")
 $path:="paraphrase-multilingual-mpnet-base-v2-ct2-int8"
