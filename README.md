@@ -1,9 +1,9 @@
 ## [sentence-transformers/paraphrase-multilingual-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2)
-Paraphrase Multilingual MPNet in GGUF, ONNX, CT2
+Paraphrase Multilingual MPNet is a text embedding model released by **Sentence Transformers** in 2021. It was trained using multilingual paraphrase knowledge distillation against MPNet to support `50` languages. 
 
-|`max_position_embeddings`|`hidden_size`|`num_hidden_layers`
-|-:|-:|-:|
-|`512`|`768`|`12`
+|`max_position_embeddings`|`hidden_size`|`num_hidden_layers`|`pooling`
+|-:|-:|-:|-:|
+|`512`|`768`|`12`|`mean`
 
 ```4d
 var $en; $fr : 4D.Vector
@@ -21,8 +21,8 @@ $cosineSimilarity:=$en.cosineSimilarity($fr)
 ALERT([$cosineSimilarity].join())
 ```
 
-##### Cosine similarity from example code above
+##### Cosine similarity from example code above:
 
 |llama.cpp `Q8_0`|ONNX Runtime `Int8`|CTranslate2 `Int8`
 |-|-|-|
-|`0.9589418736557`|`0.9271020496684`|`0.9631007786682`
+|`0.74999893963064`|`0.78200690792157`|`0.79085349507946`
