@@ -12,12 +12,6 @@ $fr:=$batch.embeddings[0].embedding
 $en:=$batch.embeddings[1].embedding
 
 $cosineSimilarity:=$en.cosineSimilarity($fr)
-//0.75156863865134
+//0.75156863864856
 
 ALERT:C41([$cosineSimilarity].join())
-
-/*
-
-this model is quite slow on cpu...
-
-*/

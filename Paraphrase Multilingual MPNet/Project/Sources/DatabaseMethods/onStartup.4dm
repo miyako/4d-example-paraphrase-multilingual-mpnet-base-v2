@@ -74,7 +74,7 @@ n_gpu_layers: -1}
 $huggingface:=cs:C1710.event.huggingface.new($folder; $URL; $path)
 $huggingfaces:=cs:C1710.event.huggingfaces.new([$huggingface])
 
-$llama:=cs:C1710.llama.llama.new($port; $huggingfaces; $homeFolder; $options; $event)
+// $llama:=cs:C1710.llama.llama.new($port; $huggingfaces; $homeFolder; $options; $event)
 
 /*
 
@@ -95,7 +95,7 @@ $URL:="keisuke-miyako/paraphrase-multilingual-mpnet-base-v2-onnx-int8"
 $huggingface:=cs:C1710.event.huggingface.new($folder; $URL; $path; "embedding"; ($URL="@-f16" || ($URL="@-f32")) ? "model.onnx" : "model_quantized.onnx")
 $huggingfaces:=cs:C1710.event.huggingfaces.new([$huggingface])
 
-//$ONNX:=cs.ONNX.ONNX.new($port; $huggingfaces; $homeFolder; $options; $event)
+// $ONNX:=cs:C1710.ONNX.ONNX.new($port; $huggingfaces; $homeFolder; $options; $event)
 
 /*
 
@@ -116,4 +116,4 @@ $URL:="keisuke-miyako/paraphrase-multilingual-mpnet-base-v2-ct2-int8"
 $huggingface:=cs:C1710.event.huggingface.new($folder; $URL; $path; "embedding")
 $huggingfaces:=cs:C1710.event.huggingfaces.new([$huggingface])
 
-//$CTranslate2:=cs.CTranslate2.CTranslate2.new($port; $huggingfaces; $homeFolder; $options; $event)
+$CTranslate2:=cs.CTranslate2.CTranslate2.new($port; $huggingfaces; $homeFolder; $options; $event)
